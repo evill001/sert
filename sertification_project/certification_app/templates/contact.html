@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        .contact-form-section {
+            background-color: #f8f9fa;
+            padding: 60px 20px;
+        }
+
+        .contact-form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+        }
+
+        .contact-form-section h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #004085;
+        }
+
+        .contact-form-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form-group {
+            margin-bottom: 15px;
+        }
+
+        .contact-form-group label {
+            font-size: 1.1em;
+            color: #212529;
+        }
+
+        .contact-form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .contact-form-input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .contact-form-btn {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .contact-form-btn:active {
+            background-color: #004085;
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Sertcenter</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{% url 'index' %}">Главная</a></li>
+                    <li><a href="{% url 'onas' %}">О нас</a></li>
+                    <li><a href="{% url 'services' %}">Услуги</a></li>
+                    <li><a href="{% url 'contact' %}">Контакты</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Вход</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="contacts">
+        <div class="container">
+            <h2>Контакты</h2>
+            <p>Свяжитесь с нами, чтобы получить профессиональную консультацию и помощь.</p>
+
+            <div class="contact-info-grid">
+                <div class="contact-item">
+                    <div class="icon">
+                        <img src="{% static 'address-icon.png' %}" alt="Адрес">
+                    </div>
+                    <h3>Наш адрес</h3>
+                    <p>г. Москва, ул. Примерная, д. 10</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">
+                        <img src="{% static 'phone-icon.png' %}" alt="Телефон">
+                    </div>
+                    <h3>Телефон</h3>
+                    <p>+7 (495) 123-45-67</p>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">
+                        <img src="{% static 'email-icon.png' %}" alt="Email">
+                    </div>
+                    <h3>Email</h3>
+                    <p><a href="mailto:info@sertcenter.ru">info@sertcenter.ru</a></p>
+                </div>
+            </div>
+
+            <section class="contact-form-section">
+                <div class="contact-form-container">
+                    <h2>Свяжитесь с нами</h2>
+                    <form action="{% url 'submit_form' %}" method="post">
+                        {% csrf_token %}
+                        <div class="contact-form-group">
+                            <label for="name">Имя</label>
+                            <input type="text" id="name" name="name" class="contact-form-input" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="tel" id="phone" name="phone" class="contact-form-input" placeholder="Ваш телефон" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="contact-form-input" placeholder="Ваш email" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" name="message" class="contact-form-input" rows="4" placeholder="Ваше сообщение" required></textarea>
+                        </div>
+                        <button type="submit" class="contact-form-btn">Отправить</button>
+                    </form>
+                </div>
+            </section>            
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 Сертификационный Центр. Все права защищены. <a>Политика конфиденциальности</a></p>
+    </footer>
+</body>
+</html>

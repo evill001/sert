@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конструктор стоимости</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .constructor .container {
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            color: #155724;
+        }
+        .examples {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+
+        .example-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }   
+
+        .examples h2 {
+            font-size: 1.8em;
+            color: #004085;
+            margin-bottom: 15px;
+        }
+
+        .examples-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .example-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .example-item h3 {
+            font-size: 1.4em;
+            color: #007bff;
+            margin-bottom: 8px;
+        }
+
+        .example-item p {
+            font-size: 1em;
+            color: #333;
+            margin: 0;
+        }
+
+        .example-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                    <h1>Sertcenter</h1>
+                </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{% url 'index' %}">Главная</a></li>
+                    <li><a href="{% url 'onas' %}">О нас</a></li>
+                    <li><a href="{% url 'services' %}">Услуги</a></li>
+                    <li><a href="{% url 'contact' %}">Контакты</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Вход</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<section class="constructor">
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="regulation">Выберите регламент:</label>
+                <select name="regulation" id="regulation">
+                    <option value="ГОСТ">ГОСТ</option>
+                    <option value="Технические условия">Технические условия</option>
+                    <option value="ИСО">ИСО</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="product_type">Тип продукции:</label>
+                <select name="product_type" id="product_type">
+                    <option value="Продукты питания">Продукты питания</option>
+                    <option value="Электроника">Электроника</option>
+                    <option value="Игрушки">Игрушки</option>
+                    <option value="Медицинская продукция">Медицинская продукция</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="samples">Количество образцов:</label>
+                <input type="number" name="samples" id="samples" min="1" max="100" value="1">
+            </div>
+
+            <div class="form-group">
+                <label for="age">Возраст продукции:</label>
+                <select name="age" id="age">
+                    <option value="1-3 года">1-3 года</option>
+                    <option value="Более 3 лет">Более 3 лет</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="duration">Срок действия:</label>
+                <select name="duration" id="duration">
+                    <option value="3 месяца">3 месяца</option>
+                    <option value="6 месяцев">6 месяцев</option>
+                    <option value="1 год">1 год</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="delivery">
+                    Доставка образцов
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="translation">
+                    Перевод документации
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="fast_release">
+                    Быстрый выпуск
+                </label>
+            </div>
+
+            <button type="submit">Рассчитать стоимость</button>
+        </form>
+
+        {% if price %}
+            <div class="result">
+                <h3>Предварительная стоимость: {{ price }} руб.</h3>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="examples">
+    <div class="container">
+        <h2>Примеры документов</h2>
+        <div class="examples-list">
+            <div class="example-item">
+                <img src="{% static 'gost_certificate.jpg' %}" alt="Сертификат ГОСТ">
+                <h3>Сертификат ГОСТ</h3>
+                <p>Пример сертификата, соответствующего требованиям ГОСТ.</p>
+            </div>
+            <div class="example-item">
+                <img src="{% static 'technical_conditions.jpg' %}" alt="Технические условия">
+                <h3>СГР</h3>
+                <p>Образец технических условий для продукции разного типа.</p>
+            </div>
+            <div class="example-item">
+                <img src="{% static 'iso_certificate.jpg' %}" alt="Сертификат ИСО">
+                <h3>Сертификат ИСО</h3>
+                <p>Документ, подтверждающий соответствие стандартам ISO.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>

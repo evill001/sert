@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        .buttonn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .buttonn:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Sertcenter</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{% url 'index' %}">Главная</a></li>
+                    <li><a href="{% url 'onas' %}">О нас</a></li>
+                    <li><a href="{% url 'services' %}">Услуги</a></li>
+                    <li><a href="{% url 'contact' %}">Контакты</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Вход</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<section class="services">
+    <div class="container">
+        <h2>Наши услуги</h2>
+        <p>Мы предлагаем широкий спектр услуг для сертификации и декларирования продукции. Наша команда экспертов готова помочь вам на каждом этапе процесса.</p>
+
+        <div class="services-list">
+            <div class="service-item">
+                <h3>Сертификация продукции</h3>
+                <p>Оформление сертификатов соответствия для различных видов товаров.</p>
+            </div>
+            <div class="service-item">
+                <h3>Декларирование продукции</h3>
+                <p>Подготовка деклараций о соответствии для вашего бизнеса.</p>
+            </div>
+            <div class="service-item">
+                <h3>Консультационные услуги</h3>
+                <p>Профессиональная поддержка и помощь в подготовке необходимых документов.</p>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <a href="{% url 'constructor' %}" class="buttonn">Рассчитать стоимость</a>
+    <br><br><br>
+</section>
+
+<footer class="main-footer">
+    <p>&copy; 2024 Сертификационный Центр. Все права защищены. <a href="policy.html">Политика конфиденциальности</a></p>
+</footer>
+
+</body>
+</html>

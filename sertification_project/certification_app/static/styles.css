@@ -1,0 +1,540 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2 {
+    color: #004085;
+}
+
+/* Хедер */
+.main-header {
+    background: #f8f9fa;
+    border-bottom: 2px solid #004085;
+    padding: 10px 0;
+}
+
+.main-header .logo h1 {
+    margin: 0;
+    color: #004085;
+    font-size: 24px;
+}
+
+.main-header .main-nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.main-header .main-nav ul li a {
+    text-decoration: none;
+    color: #004085;
+    font-weight: bold;
+}
+
+.main-header .contact-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Секция Hero */
+.hero {
+    background: linear-gradient(90deg, #004085, #007bff);
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.hero h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.hero .btn-primary {
+    background: white;
+    color: #004085;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.hero .btn-primary:hover {
+    background: #e2e6ea;
+}
+
+/* Секции */
+.about, .services, .testimonials {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.service-list li {
+    background: #f8f9fa;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    width: 250px;
+}
+
+.testimonials-slider {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+.testimonial {
+    background: #f8f9fa;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+/* Футер */
+.main-footer {
+    background: #f8f9fa;
+    text-align: center;
+    padding: 20px 0;
+    border-top: 2px solid #004085;
+}
+
+.main-footer p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+
+/* Стили для главного меню */
+header.main-header {
+    background-color: #003366;
+    color: white;
+    padding: 20px 0;
+}
+header.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header.main-header .logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+header.main-header .main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+header.main-header .main-nav ul li {
+    display: inline;
+}
+header.main-header .main-nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+header.main-header .main-nav ul li a:hover {
+    background-color: #0055a5;
+}
+
+/* Стили для секции "О нас" */
+section.about {
+    padding: 50px 0;
+    background-color: #f8f8f8;
+}
+section.about .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+section.about h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #003366;
+}
+section.about p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #333;
+}
+section.about ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+section.about ul li {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #555;
+}
+
+/* Стили для футера */
+footer.main-footer {
+    background-color: #003366;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+footer.main-footer a {
+    color: #ffa500;
+    text-decoration: none;
+}
+footer.main-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* Стили для главного меню на странице услуг */
+header.main-header {
+    background-color: #00264d;
+    color: white;
+    padding: 20px 0;
+}
+header.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header.main-header .logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+header.main-header .main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+header.main-header .main-nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+header.main-header .main-nav ul li a:hover {
+    background-color: #004080;
+}
+
+/* Стили для секции "Услуги" */
+section.services {
+    padding: 50px 0;
+    background-color: #f2f2f2;
+}
+section.services .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+section.services h2 {
+    font-size: 32px;
+    color: #00264d;
+    margin-bottom: 20px;
+}
+section.services p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #333;
+}
+.services-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.service-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    width: calc(33.333% - 20px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+.service-item h3 {
+    font-size: 24px;
+    color: #00264d;
+    margin-bottom: 15px;
+}
+.service-item p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Стили для футера */
+footer.main-footer {
+    background-color: #00264d;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+footer.main-footer a {
+    color: #ffa500;
+    text-decoration: none;
+}
+footer.main-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* Стили для главного меню на странице контактов */
+header.main-header {
+    background-color: #00264d;
+    color: white;
+    padding: 20px 0;
+}
+header.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header.main-header .logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+header.main-header .main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+header.main-header .main-nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+header.main-header .main-nav ul li a:hover {
+    background-color: #004080;
+}
+
+/* Стили для секции "Контакты" */
+section.contacts {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+}
+section.contacts .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+section.contacts h2 {
+    font-size: 32px;
+    color: #00264d;
+    margin-bottom: 20px;
+}
+section.contacts p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/* Стили для сетки с контактной информацией */
+.contact-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+.contact-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.contact-item .icon img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+.contact-item h3 {
+    font-size: 24px;
+    color: #00264d;
+    margin-bottom: 10px;
+}
+.contact-item p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Стили для футера */
+footer.main-footer {
+    background-color: #00264d;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+footer.main-footer a {
+    color: #ffa500;
+    text-decoration: none;
+}
+footer.main-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для страницы "Спасибо за заявку" */
+.success-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+    color: #212529;
+    font-family: Arial, sans-serif;
+}
+
+.success-page .container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+.success-page h1 {
+    font-size: 2em;
+    color: #28a745; /* Зеленый цвет */
+    margin-bottom: 20px;
+}
+
+.success-page p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #6c757d;
+}
+
+.success-page a {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.success-page a:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для формы */
+.contact-form-section {
+    background-color: #f8f9fa;
+    padding: 60px 20px;
+}
+
+.contact-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+}
+
+.contact-form-section h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #004085;
+}
+
+.contact-form-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form-group {
+    margin-bottom: 15px;
+}
+
+.contact-form-group label {
+    font-size: 1.1em;
+    color: #212529;
+}
+
+.contact-form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.contact-form-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.contact-form-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form-btn:hover {
+    background-color: #0056b3;
+}
+
+.contact-form-btn:active {
+    background-color: #004085;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+}

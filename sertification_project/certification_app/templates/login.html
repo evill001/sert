@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        /* Основной стиль для всего тела страницы */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Градиентный фон */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Хедер */
+        header.main-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        /* Основной контейнер для формы */
+        .login-form {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-form h2 {
+            text-align: center;
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .login-form div {
+            margin-bottom: 20px;
+        }
+
+        /* Стили для полей ввода */
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .login-form input:focus {
+            border-color: #6a11cb;
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+        }
+
+        /* Кнопка входа */
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #6a11cb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background-color: #2575fc;
+        }
+
+        /* Стиль для ссылки, если понадобится добавлять ссылку */
+        .login-form .forgot-password {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #2575fc;
+            font-size: 0.9em;
+            text-decoration: none;
+        }
+
+        .login-form .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <div class="container">
+        <h1>Личный кабинет</h1>
+    </div>
+</header>
+
+<section class="login-form">
+    <div class="container">
+        <h2>Вход</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+                <label for="username">Имя пользователя:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Войти</button>
+        </form>
+        <div class="register-link">
+            <p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

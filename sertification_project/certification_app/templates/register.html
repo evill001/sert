@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        /* Общие стили для страницы регистрации */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Хедер */
+        header.main-header {
+            background-color: #00264d;
+            color: white;
+            padding: 20px 0;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header .logo h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        header nav.main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        header nav.main-nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        header nav.main-nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Секция регистрации */
+        .registration {
+            padding: 60px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .registration .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .registration h2 {
+            font-size: 32px;
+            color: #004085;
+            margin-bottom: 20px;
+        }
+
+        .registration .form-group {
+            margin-bottom: 20px;
+        }
+
+        .registration .form-group label {
+            display: block;
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .registration .form-group input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s;
+        }
+
+        .registration .form-group input:focus {
+            border-color: #004085;
+            outline: none;
+        }
+
+        .registration .btn {
+            display: inline-block;
+            background-color: #004085;
+            color: white;
+            font-size: 16px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .registration .btn:hover {
+            background-color: #00264d;
+        }
+
+        .registration .messages {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff3cd;
+            color: #856404;
+            border-radius: 6px;
+        }
+
+        .registration .messages ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .registration .messages ul li {
+            margin-bottom: 5px;
+        }
+
+        /* Футер */
+        footer.main-footer {
+            background-color: #004085;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer.main-footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Sertcenter</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{% url 'index' %}">Главная</a></li>
+                    <li><a href="{% url 'onas' %}">О нас</a></li>
+                    <li><a href="{% url 'services' %}">Услуги</a></li>
+                    <li><a href="{% url 'contact' %}">Контакты</a></li>
+                    <li><a href="{% url 'login' %}">Вход</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="registration">
+        <div class="container">
+            <h2>Регистрация</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="password_confirm">Подтвердите пароль</label>
+                    <input type="password" id="password_confirm" name="password_confirm" required>
+                </div>
+                <button type="submit" class="btn">Зарегистрироваться</button>
+            </form>
+        </div>
+    </section>
+
+    <br><br><br><br><br><br><br><br><br><br>
+    <footer class="main-footer">
+        <p>&copy; 2024 Сертификационный Центр. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>

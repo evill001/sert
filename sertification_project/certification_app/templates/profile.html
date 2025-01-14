@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        /* Стили для секции профиля */
+        .profile {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .profile h2 {
+            font-size: 1.8em;
+            color: #004085;
+            margin-bottom: 20px;
+        }
+
+        .profile p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .profile p span {
+            font-weight: bold;
+        }
+
+        .profile a.logout-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 1.1em;
+            text-align: center;
+            width: 100%;
+        }
+
+        .profile a.logout-btn:hover {
+            background-color: #e43f3f;
+        }
+
+        /* Стили для секции баланса */
+        .balance-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .balance-section h2 {
+            font-size: 1.6em;
+            color: #004085;
+            margin-bottom: 15px;
+        }
+
+        .balance-section p {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        /* Стили для списка документов */
+        .documents-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .documents-section h2 {
+            font-size: 1.6em;
+            color: #004085;
+            margin-bottom: 15px;
+        }
+
+        .documents-section table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .documents-section table th,
+        .documents-section table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .documents-section table th {
+            background-color: #f8f9fa;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Стили для кнопки "Пополнить баланс" */
+        .balance-section .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #007bff; /* Синий цвет */
+            border: none;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .balance-section .btn:hover {
+            background-color: #0056b3; /* Более тёмный синий при наведении */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень при наведении */
+        }
+
+        .balance-section .btn:active {
+            background-color: #004085; /* Ещё темнее при нажатии */
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.3); /* Внутренняя тень при нажатии */
+        }
+
+        .note {
+        margin-top: 15px;
+        padding: 15px;
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        border-radius: 6px;
+        color: #856404;
+        font-size: 0.95em;
+        line-height: 1.4;
+        }
+
+        .note strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="profile-page">
+
+<header class="main-header">
+    <div class="container">
+        <div class="logo">
+                <h1>Sertcenter</h1>
+            </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'onas' %}">О нас</a></li>
+                <li><a href="{% url 'services' %}">Услуги</a></li>
+                <li><a href="{% url 'contact' %}">Контакты</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Вход</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="profile">
+    <div class="container">
+        <h2>Ваши данные:</h2>
+        <p><span>Имя пользователя:</span> {{ user.username }}</p>
+        <p><span>Email:</span> {{ user.email }}</p>
+        <p><span>Дата регистрации:</span> {{ user.date_joined }}</p>
+        <a href="{% url 'logout' %}" class="logout-btn">Выйти из аккаунта</a>
+    </div>
+</section>
+
+
+<section class="balance-section">
+    <div class="container">
+        <h2>Ваш баланс:</h2>
+        <p>{{ user.profile.balance }} ₽</p>
+        <a href="{% url 'add_balance' %}" class="btn btn-primary">Пополнить баланс</a>
+        <div class="note">
+            <p><strong>Важно:</strong> Списание средств с баланса происходит только после полной договоренности с менеджером о всех деталях через телефон, почту или мессенджер.</p>
+        </div>
+    </div>
+</section>
+
+
+<section class="documents-section">
+    <div class="container">
+        <h2>Ваши документы:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Статус</th>
+                    <th>Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for document in documents %}
+                    <tr>
+                        <td>{{ document.title }}</td>
+                        <td>{{ document.description }}</td>
+                        <td>{{ document.status }}</td>
+                        <td>{{ document.price }} ₽</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">Документов пока нет.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+</body>
+</html>

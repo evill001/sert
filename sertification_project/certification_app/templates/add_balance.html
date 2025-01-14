@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пополнение баланса</title>
+    {% load static %}
+</head>
+<body>
+    <h1>Пополнить баланс</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="amount">Сумма:</label>
+        <input type="number" step="0.01" name="amount" id="amount" required>
+        <button type="submit">Пополнить</button>
+    </form>
+    <a href="{% url 'profile' %}">Вернуться в профиль</a>
+</body>
+</html>

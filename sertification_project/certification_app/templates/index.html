@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Орган сертификации - Главная</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        .contact-form-section {
+            background-color: #f8f9fa;
+            padding: 60px 20px;
+        }
+
+        .contact-form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+        }
+
+        .contact-form-section h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #004085;
+        }
+
+        .contact-form-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form-group {
+            margin-bottom: 15px;
+        }
+
+        .contact-form-group label {
+            font-size: 1.1em;
+            color: #212529;
+        }
+
+        .contact-form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .contact-form-input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .contact-form-btn {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .contact-form-btn:active {
+            background-color: #004085;
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Sertcenter</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{% url 'index' %}">Главная</a></li>
+                    <li><a href="{% url 'onas' %}">О нас</a></li>
+                    <li><a href="{% url 'services' %}">Услуги</a></li>
+                    <li><a href="{% url 'contact' %}">Контакты</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Вход</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Гарантия качества и надежности</h2>
+            <p>Оформление сертификатов и деклараций для вашего бизнеса</p>
+            <a href="{% url 'services' %}" class="btn-primary">Подробнее</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>О нас</h2>
+            <p>Наш центр предоставляет услуги сертификации продукции уже более 10 лет, сотрудничая с 13 000+ клиентов по всей России. Мы гарантируем высокое качество и оперативность в оформлении всех видов сертификатов.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Наши услуги</h2>
+            <ul class="service-list">
+                <li>Оформление сертификатов соответствия</li>
+                <li>Помощь с декларированием продукции</li>
+                <li>Проведение лабораторных испытаний</li>
+                <li>Составление технической документации</li>
+                <li>Консультации по сертификации</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2>Отзывы клиентов</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial">
+                    <p>"Очень довольны работой Центра Сертификации. Все сделали быстро и качественно!"</p>
+                    <p>- ООО "Компания"</p>
+                </div>
+                <div class="testimonial">
+                    <p>"Сертификат получили за неделю. Благодарим за помощь!"</p>
+                    <p>- ИП Иванов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-form-section">
+        <div class="contact-form-container">
+            <h2>Свяжитесь с нами</h2>
+            <form action="{% url 'submit_form' %}" method="post">
+                {% csrf_token %}
+                <div class="contact-form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" name="name" class="contact-form-input" placeholder="Ваше имя" required>
+                </div>
+                <div class="contact-form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" class="contact-form-input" placeholder="Ваш телефон" required>
+                </div>
+                <div class="contact-form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="contact-form-input" placeholder="Ваш email" required>
+                </div>
+                <div class="contact-form-group">
+                    <label for="message">Сообщение</label>
+                    <textarea id="message" name="message" class="contact-form-input" rows="4" placeholder="Ваше сообщение" required></textarea>
+                </div>
+                <button type="submit" class="contact-form-btn">Отправить</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Центр Сертификации. Все права защищены.</p>
+            <p><a href="/privacy-policy">Политика конфиденциальности</a></p>
+        </div>
+    </footer>
+</body>
+</html>
