@@ -1,13 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import User
+from decimal import Decimal
+from django.core.exceptions import ValidationError
+from django.contrib import admin
 
 # Расширение профиля пользователя
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # Баланс пользователя
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username} - {self.balance:.2f}"
+
+    def deduct_balance(self, amount):
+        """Списать баланс пользователя."""
+        amount = Decimal(amount)
+        if amount <= 0:
+            raise ValidationError("Сумма списания должна быть больше 0.")
+        if self.balance < amount:
+            raise ValidationError("Недостаточно средств.")
+        self.balance -= amount
+        self.save()
 
 # Модель документа
 class Document(models.Model):

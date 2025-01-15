@@ -9,8 +9,6 @@
 <body>
     <h1>Добавить документ</h1>
     <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Добавить</button>
     </form>
     <a href="{% url 'document_list' %}">Назад к списку документов</a>

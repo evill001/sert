@@ -5,13 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Заявка отправлена</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        /* Стили для страницы успешной отправки заявки */
+.submission-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f8ff; /* Светлый голубой фон */
+    font-family: 'Arial', sans-serif;
+    color: #212529;
+}
+
+.success-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+}
+
+.success-container h1 {
+    font-size: 2.5em;
+    color: #28a745; /* Зеленый цвет для успеха */
+    margin-bottom: 20px;
+}
+
+.success-container p {
+    font-size: 1.2em;
+    color: #6c757d; /* Серый цвет текста */
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.back-btn:active {
+    background-color: #004085;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Спасибо за вашу заявку!</h1>
-        <p>{{ message }}</p>
-        <a href="{% url 'index' %}" class="btn btn-primary">Вернуться на главную</a>
-    </div>
+    <section class="submission-success">
+        <div class="success-container">
+            <h1>Спасибо за вашу заявку!</h1>
+            <p>{{ message }}</p>
+            <a href="{% url 'index' %}" class="back-btn">Вернуться на главную</a>
+        </div>
+    </section>
 </body>
 </html>

@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Document, Profile, Application
 from .forms import DocumentForm, ApplicationForm
+from decimal import Decimal
 
 
 def index(request):
@@ -136,14 +137,34 @@ def profile_view(request):
     }
     return render(request, 'profile.html', context)
 
+@login_required
 def add_balance(request):
     if request.method == 'POST':
         amount = request.POST.get('amount')
-        if amount and amount.isdigit():
+        try:
+            # Преобразуем строку в Decimal
+            amount = Decimal(amount)
+            if amount <= 0:
+                raise ValueError("Сумма должна быть больше 0.")
+            
+            # Обновляем баланс
             profile = request.user.profile
-            profile.balance += int(amount)
+            old_balance = profile.balance  # Для отладки
+            profile.balance += amount
             profile.save()
-    return redirect('profile')
+
+            # Вывод для отладки
+            print(f"Баланс до: {old_balance}, Пополнено: {amount}, Баланс после: {profile.balance}")
+
+            messages.success(request, f'Баланс успешно пополнен на {amount:.2f} единиц.')
+        except ValueError as e:
+            messages.error(request, f'Ошибка: {str(e)}')
+        except Exception as e:
+            messages.error(request, 'Что-то пошло не так. Попробуйте снова.')
+        
+        return redirect('profile')
+    
+    return render(request, 'add_balance.html')
 
 
 @login_required
