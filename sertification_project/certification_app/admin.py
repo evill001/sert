@@ -41,3 +41,9 @@ class ProfileAdmin(admin.ModelAdmin):
             min_value=0.01
         )
         return form
+    
+
+    class DocumentAdmin(admin.ModelAdmin):
+        list_display = ('user', 'title', 'status', 'price')
+        search_fields = ('title', 'user__username')
+        list_filter = ('status',)

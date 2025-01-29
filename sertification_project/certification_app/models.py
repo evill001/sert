@@ -22,22 +22,22 @@ class Profile(models.Model):
         self.balance -= amount
         self.save()
 
-# Модель документа
 class Document(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
-    title = models.CharField(max_length=255)  # Название документа
-    description = models.TextField(blank=True, null=True)  # Описание документа
-    created_at = models.DateTimeField(auto_now_add=True)  # Дата создания
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     status = models.CharField(
         max_length=50, 
         choices=[('created', 'Created'), ('completed', 'Completed')], 
         default='created'
-    )  # Статус документа
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # Цена документа
+    )
+    file = models.FileField(upload_to='documents/', blank=True, null=True)  # Загруженные файлы хранятся в media/documents/
 
     def __str__(self):
         return self.title
+
     
 class Application(models.Model):
     name = models.CharField("Имя клиента", max_length=100)

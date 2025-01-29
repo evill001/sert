@@ -154,8 +154,8 @@
 <header class="main-header">
     <div class="container">
         <div class="logo">
-                <h1>Sertcenter</h1>
-            </div>
+            <h1>Sertcenter</h1>
+        </div>
         <nav class="main-nav">
             <ul>
                 <li><a href="{% url 'index' %}">Главная</a></li>
@@ -182,7 +182,6 @@
     </div>
 </section>
 
-
 <section class="balance-section">
     <div class="container">
         <h2>Ваш баланс:</h2>
@@ -194,7 +193,6 @@
     </div>
 </section>
 
-
 <section class="documents-section">
     <div class="container">
         <h2>Ваши документы:</h2>
@@ -205,19 +203,27 @@
                     <th>Описание</th>
                     <th>Статус</th>
                     <th>Цена</th>
+                    <th>Действия</th>
                 </tr>
             </thead>
             <tbody>
-                {% for document in documents %}
+                {% for document in user.documents.all %}
                     <tr>
                         <td>{{ document.title }}</td>
                         <td>{{ document.description }}</td>
-                        <td>{{ document.status }}</td>
+                        <td>{{ document.get_status_display }}</td>
                         <td>{{ document.price }} ₽</td>
+                        <td>
+                            {% if document.file %}
+                                <a href="{{ document.file.url }}" download>📥 Скачать</a>
+                            {% else %}
+                                <span>Файл недоступен</span>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="4">Документов пока нет.</td>
+                        <td colspan="5">Документов пока нет.</td>
                     </tr>
                 {% endfor %}
             </tbody>
