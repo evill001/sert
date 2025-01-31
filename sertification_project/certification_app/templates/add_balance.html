@@ -6,106 +6,113 @@
     <title>Пополнение баланса</title>
     {% load static %}
     <style>
-        /* Стили для страницы пополнения баланса */
-.balance-section {
-    background-color: #f0f8ff;
-    padding: 60px 20px;
-    font-family: 'Arial', sans-serif;
-    color: #333;
-}
+        .balance-section {
+            background-color: #f0f8ff;
+            padding: 60px 20px;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
 
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    text-align: center;
-}
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
 
-h1 {
-    font-size: 2em;
-    color: #004085;
-    margin-bottom: 20px;
-}
+        h1 {
+            font-size: 2em;
+            color: #004085;
+            margin-bottom: 20px;
+        }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-.form-group {
-    text-align: left;
-}
+        .form-group {
+            text-align: left;
+        }
 
-label {
-    font-size: 1.1em;
-    color: #212529;
-}
+        label {
+            font-size: 1.1em;
+            color: #212529;
+        }
 
-input[type="number"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1.1em;
-    transition: border 0.3s ease;
-}
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: border 0.3s ease;
+        }
 
-input[type="number"]:focus {
-    border-color: #007bff;
-    outline: none;
-}
+        input[type="number"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
 
-button[type="submit"] {
-    padding: 12px 20px;
-    font-size: 1.1em;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        .payment-methods {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
-}
+        .payment-method {
+            padding: 10px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-button[type="submit"]:active {
-    background-color: #004085;
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
-}
+        .payment-method img {
+            width: 80px;
+        }
 
-.messages {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
-}
+        .payment-method.active {
+            border-color: #007bff;
+            border-radius: 5px;
+        }
 
-.messages li {
-    background-color: #d4edda;
-    color: #155724;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
+        .final-amount {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
 
-.back-link {
-    display: inline-block;
-    margin-top: 20px;
-    color: #007bff;
-    font-size: 1.1em;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
+        button[type="submit"] {
+            padding: 12px 20px;
+            font-size: 1.1em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-.back-link:hover {
-    color: #0056b3;
-}
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
 
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            font-size: 1.1em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -125,12 +132,46 @@ button[type="submit"]:active {
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="amount">Сумма:</label>
-                    <input type="number" step="0.01" name="amount" id="amount" min="0.01" required>
+                    <input type="number" step="0.01" name="amount" id="amount" min="0.01" required oninput="calculateFinalAmount()">
                 </div>
-                <button type="submit" class="btn">Пополнить</button>
+                
+                <div class="payment-methods">
+                    <div class="payment-method" onclick="selectMethod('visa', 0.02)">
+                        <img src="{% static 'visa.png' %}" alt="Visa">
+                        <p>Visa/Mastercard (Комиссия 2%)</p>
+                    </div>
+                    <div class="payment-method" onclick="selectMethod('paypal', 0.03)">
+                        <img src="{% static 'paypal.png' %}" alt="PayPal">
+                        <p>PayPal (Комиссия 3%)</p>
+                    </div>
+                </div>
+                
+                <p class="final-amount">Итоговая сумма: <span id="finalAmount">0.00</span> ₽</p>
+                
+                <button type="submit" class="btn">Оплатить</button>
             </form>
             <a href="{% url 'profile' %}" class="back-link">Вернуться в профиль</a>
         </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </section>
+
+    <script>
+        let selectedMethod = null;
+        let commission = 0;
+
+        function selectMethod(method, fee) {
+            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('active'));
+            document.querySelector(`[onclick="selectMethod('${method}', ${fee})"]`).classList.add('active');
+            selectedMethod = method;
+            commission = fee;
+            calculateFinalAmount();
+        }
+
+        function calculateFinalAmount() {
+            let amount = parseFloat(document.getElementById('amount').value) || 0;
+            let total = amount + (amount * commission);
+            document.getElementById('finalAmount').textContent = total.toFixed(2);
+        }
+    </script>
 </body>
 </html>
